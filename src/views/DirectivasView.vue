@@ -1,16 +1,30 @@
 <template>
-    <Directivas/>
+    <div class="view-container">
+        <h2>Prueba</h2>
+        <Directivas />
+    </div>
+
 </template>
 
 <script>
 import Directivas from "../components/Directivas.vue"
 export default {
-    components:{
+    components: {
         Directivas,
-    }
-}
+    },
+};
 </script>
 
-<style>
+<style scoped>
+.view-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 
+}
+
+h2 {
+    font-size: 50px;
+}
 </style>
