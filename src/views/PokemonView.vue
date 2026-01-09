@@ -1,13 +1,19 @@
 <template>
-  <PokemonImagen :pokemonId="pokemonGanador" />
-  <PokemonOpciones
-    @seleccionado="evaluarGanador($event)"
-    :listaPokemons="pokemonArr"
+  <PokemonImagen
+    v-if="mostrar && pokemonGanador !== null"
+    :pokemonId="pokemonGanador"
   />
+
+  <PokemonOpciones
+    :listaPokemons="pokemonArr"
+    @seleccionado="evaluarGanador"
+  />
+
+  <button @click="destruirImagen">Destruir</button>
+
   <p v-if="mensaje">{{ mensaje }}</p>
- 
 </template>
- 
+
 <script>
 import {
   obteneAleatorioFachada,
@@ -15,6 +21,7 @@ import {
 } from "@/clients/PokemonClient";
 import PokemonImagen from "@/components/PokemonImage.vue";
 import PokemonOpciones from "@/components/PokemonOpciones.vue";
+
 export default {
   components: {
     PokemonImagen,
@@ -24,25 +31,11 @@ export default {
     return {
       pokemonArr: [],
       pokemonGanador: null,
-      mensaje:null,
+      mensaje: null,
+      mostrar: true,
     };
   },
-  /*Crea el componente*/
-  beforeCreate() {
-
-    console.log("beforeCreate: apenas inicia la instancia del componente");
-  },
-  create(){
-    console.log("create: se ejecuta cuando ya se han ejecutado el data, computed, methods Y WATCH ")
-  },
-
-  /* Monta el componente: renderiza o visualiza el componente */
-
-  beforeMount() {
-    console.log("beforeMounted: ");
-  },
   mounted() {
-    console.log("componente¡ montado");
     this.iniciarJuego();
   },
   methods: {
@@ -51,19 +44,18 @@ export default {
       const idAleatorio = obteneAleatorioFachada(0, 3);
       this.pokemonGanador = this.pokemonArr[idAleatorio].id;
     },
-    evaluarGanador(idGanador) {
-      console.log("valor recibido desde el padre");
-      console.log(idGanador);
-      if (idGanador === this.pokemonGanador) {
-        this.mensaje="ganaste";
-      } else {
-        this.mensaje="perdiste";
-      }
+    evaluarGanador(id) {
+      this.mensaje = id === this.pokemonGanador ? "Ganaste" : "Perdiste";
+    },
+    destruirImagen() {
+      this.mostrar = false;
     },
   },
 };
 </script>
- 
+
 <style>
- 
+button {
+  margin-top: 10px;
+}
 </style>
