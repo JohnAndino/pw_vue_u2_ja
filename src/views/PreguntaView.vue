@@ -22,4 +22,6 @@ export default {
         align-items: center;
         flex-direction: column;
     }
+
+    
 </style>

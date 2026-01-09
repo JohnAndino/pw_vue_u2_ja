@@ -5,7 +5,7 @@
     <Contador tit="Contador 2" :inicio="4" :mostrar="false"/>
   </div>
 </template>
-
+43ewQREZS
 <script>
 import Contador from "../components/Contador.vue";
 export default {
